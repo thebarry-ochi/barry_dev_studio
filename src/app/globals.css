@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --color-background: var(--canvas);
+  --color-foreground: var(--ink);
+  --color-primary: var(--brand-navy);
+  --color-primary-foreground: var(--brand-white);
+  --color-secondary: var(--brand-blue);
+  --color-secondary-foreground: var(--brand-white);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-ink);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--muted-ink);
+  --color-border: var(--border);
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { color-scheme: light; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100svh;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { line-height: 1.15; text-wrap: balance; }
+  h1 { font-size: var(--text-heading); font-weight: 600; letter-spacing: -0.03em; }
+  p { margin-block: var(--space-4); overflow-wrap: anywhere; }
+  a { color: var(--muted-ink); text-underline-offset: 0.2em; text-decoration: underline; }
+  button, input, textarea, select { font: inherit; }
+  img, video, svg { max-width: 100%; }
+  img, video { height: auto; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+}
+
+@layer components {
+  .container { width: 100%; max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-padding); }
+  .section { padding-block: var(--section-padding); }
+  .prose-width { max-width: 65ch; }
+  .skip-link { position: fixed; top: var(--space-4); left: var(--space-4); z-index: 100; padding: var(--space-2) var(--space-4); background: var(--canvas); transform: translateY(-200%); }
+  .skip-link:focus { transform: translateY(0); }
+}
+
+/* Future CSS motion must respect the same preference as MotionConfig. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

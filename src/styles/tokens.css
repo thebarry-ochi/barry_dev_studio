@@ -1,0 +1,37 @@
+/* Primitive values */
+:root {
+  --brand-navy: #14213D;
+  --brand-blue: #22577A;
+  --brand-amber: #FCA311;
+  --brand-gray: #E5E5E5;
+  --brand-black: #000000;
+  --brand-white: #FFFFFF;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-heading: clamp(2rem, 1.5rem + 2vw, 3rem);
+
+  /* Semantic roles; amber is an accent with dark text, not text on white. */
+  --canvas: var(--brand-white);
+  --ink: var(--brand-navy);
+  --muted-ink: var(--brand-blue);
+  --accent: var(--brand-amber);
+  --accent-ink: var(--brand-black);
+  --surface: var(--brand-gray);
+  --border: var(--brand-gray);
+  --focus: var(--brand-blue);
+  --page-gutter: clamp(1rem, 4vw, 3rem);
+  --section-space: clamp(3rem, 6vw, 6rem);
+
+  /* Layout component tokens */
+  --container-max: 80rem;
+  --container-padding: var(--page-gutter);
+  --section-padding: var(--section-space);
+}
