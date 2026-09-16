@@ -1,0 +1,71 @@
+/* Artwork-only neutrals. Brand colours and type continue to come from the site tokens. */
+.kifaru-scene {
+  --kifaru-wire-ink: #707784;
+  --kifaru-wire-fill: #cdd1d7;
+  --kifaru-wire-border: #c4c9d0;
+  --kifaru-wire-surface: #eef0f2;
+  --kifaru-browser-surface: #f7f8f9;
+  --kifaru-chrome-ink: #69717f;
+  --kifaru-frame-border: #cbd0d8;
+  width: 100%;
+  aspect-ratio: 640 / 540;
+  isolation: isolate;
+}
+.kifaru-artwork {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transform: rotate(var(--kifaru-rotation, 0deg));
+  transform-origin: 50% 50%;
+}
+/* Process state changes remain instant; only the hero has an entrance. */
+.process-art .kifaru-caption {
+  display: grid;
+  gap: 6px;
+  min-height: 43px;
+  margin-top: 4px;
+}
+.kifaru-caption strong { color: var(--brand-navy); font-size: 12px; font-weight: 600; }
+.kifaru-caption span { font-size: 11px; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) {
+  .kifaru-artwork { transform: none; }
+}
+@media (max-width: 767px) {
+  .process-art .kifaru-caption { min-height: 54px; padding-inline: 14px; }
+}
+
+/* Normalized path lengths avoid layout reads. Ink drawing repaints the small SVG;
+   text uses opacity only. There are no per-frame JavaScript updates or loops. */
+@keyframes kifaru-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes kifaru-label {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-drawing:not([data-drawing="complete"]) [data-draw] {
+    stroke-dasharray: 1;
+    animation: kifaru-draw 700ms cubic-bezier(0.45, 0, 0.25, 1) var(--draw-delay, 0ms) both;
+    animation-play-state: paused;
+  }
+  .hero-drawing:not([data-drawing="complete"]) :is([data-kifaru-layer="sketch"], [data-kifaru-layer="annotations"]) text {
+    animation: kifaru-label 250ms cubic-bezier(0.23, 1, 0.32, 1) calc(var(--draw-delay, 0ms) + 160ms) both;
+    animation-play-state: paused;
+  }
+  .hero-drawing [data-part="navigation"] { --draw-delay: 180ms; }
+  .hero-drawing [data-part="hero-copy"] { --draw-delay: 320ms; }
+  .hero-drawing [data-part="hero-image"] { --draw-delay: 480ms; }
+  .hero-drawing [data-part="cta"] { --draw-delay: 640ms; }
+  .hero-drawing [data-part="cards"] { --draw-delay: 780ms; }
+  .hero-drawing [data-card="amboseli"] { --draw-delay: 860ms; }
+  .hero-drawing [data-card="serengeti"] { --draw-delay: 940ms; }
+  .hero-drawing [data-part="notes"],
+  .hero-drawing [data-part="arrows"],
+  .hero-drawing [data-part="measurements"] { --draw-delay: 1100ms; }
+  .hero-drawing[data-drawing="running"] [data-draw],
+  .hero-drawing[data-drawing="running"] :is([data-kifaru-layer="sketch"], [data-kifaru-layer="annotations"]) text { animation-play-state: running; }
+}

@@ -1,12 +1,21 @@
-import { Container } from "@/components/layout/container";
+import { Header } from "@/components/site/header/header";
+import { Hero } from "@/components/site/hero/hero";
+import { Process } from "@/components/site/process/process";
+import { Work } from "@/components/site/work/work";
+import { Contact } from "@/components/site/contact/contact";
+import { Footer } from "@/components/site/footer/footer";
 
 export default function Home() {
   return (
-    <main id="main-content" tabIndex={-1} className="section">
-      <Container>
-        <h1>Barry Dev Studio</h1>
-        <p className="prose-width">Website in development.</p>
-      </Container>
-    </main>
+    <div id="top">
+      <Header />
+      <main id="main-content" tabIndex={-1}>
+        <Hero />
+        <Process />
+        <Work />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
   );
 }

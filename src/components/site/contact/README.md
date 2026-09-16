@@ -1,3 +1,3 @@
 # Contact
 
-Reserved for Phase 1 implementation. No section UI is rendered in Phase 0.
+Implemented for Phase 1. See docs/phase-1.md for scope and deferred integrations.

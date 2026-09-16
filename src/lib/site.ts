@@ -6,7 +6,7 @@ if (url && (!["https:", "http:"].includes(url.protocol) || url.pathname !== "/" 
 
 export const site = {
   name: "Barry Dev Studio",
-  description: "The home of Barry Dev Studio.",
+  description: "Thoughtful web design and development for businesses. Websites that build trust and make it easier for customers to choose you.",
   url,
   indexable: Boolean(url) && process.env.SITE_INDEXABLE === "true",
 };

@@ -1,7 +1,10 @@
-# Kifaru assets
+# Kifaru photography
 
-Reserve this directory for approved SVG source/export files. React SVG components
-belong in `src/components/graphics/kifaru`. Preserve a responsive viewBox, use
-currentColor or brand tokens where appropriate, and give informative graphics an
-accessible title. Decorative graphics should be aria-hidden. Prefix internal SVG
-IDs per instance to avoid collisions. No illustration is created in Phase 0.
+Generated illustrative assets for the fictional Kifaru safari concept, not client photography.
+
+- hero-safari.webp: 900px wide, elephants and acacia, reused from the Phase 1 safari source.
+- maasai-mara.webp: 480px wide version of the same source.
+- amboseli.webp: 480px wide, elephants and Kilimanjaro.
+- serengeti.webp: 480px wide, giraffes in savannah.
+
+All are WebP, quality 80. Full prompts are in docs/asset-provenance.md. SVG geometry lives in src/components/graphics/kifaru.
