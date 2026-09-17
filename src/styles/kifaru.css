@@ -20,7 +20,7 @@
   transform: rotate(var(--kifaru-rotation, 0deg));
   transform-origin: 50% 50%;
 }
-/* Process state changes remain instant; only the hero has an entrance. */
+/* The Process caption reserves space across all four stages. */
 .process-art .kifaru-caption {
   display: grid;
   gap: 6px;
@@ -62,10 +62,20 @@
   .hero-drawing [data-part="cta"] { --draw-delay: 640ms; }
   .hero-drawing [data-part="cards"] { --draw-delay: 780ms; }
   .hero-drawing [data-card="amboseli"] { --draw-delay: 860ms; }
-  .hero-drawing [data-card="serengeti"] { --draw-delay: 940ms; }
+  .hero-drawing [data-card="samburu"] { --draw-delay: 940ms; }
   .hero-drawing [data-part="notes"],
   .hero-drawing [data-part="arrows"],
   .hero-drawing [data-part="measurements"] { --draw-delay: 1100ms; }
   .hero-drawing[data-drawing="running"] [data-draw],
   .hero-drawing[data-drawing="running"] :is([data-kifaru-layer="sketch"], [data-kifaru-layer="annotations"]) text { animation-play-state: running; }
+}
+
+/* Handwritten planning marks give way to the same crisp, typeset layout. */
+.kifaru-pencil { font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-drawing:not([data-drawing="complete"]) .kifaru-pencil-scene {
+    animation: kifaru-label 700ms ease-out 480ms both;
+    animation-play-state: paused;
+  }
+  .hero-drawing[data-drawing="running"] .kifaru-pencil-scene { animation-play-state: running; }
 }

@@ -1,7 +1,10 @@
+@import "../styles/journey.css";
 @import "tailwindcss";
 @import "../styles/tokens.css";
 @import "../styles/home.css";
 @import "../styles/kifaru.css";
+@import "../styles/process-scroll.css";
+@import "../styles/work-overlap.css";
 
 @theme inline {
   --font-sans: var(--font-geist-sans);

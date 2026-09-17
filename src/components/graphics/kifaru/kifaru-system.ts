@@ -19,12 +19,14 @@ export const kifaruGeometry = {
 } as const;
 
 export const kifaruDestinations = [
-  { key: "maasai-mara", name: "Maasai Mara", x: 82, image: "/assets/kifaru/maasai-mara.webp" },
-  { key: "amboseli", name: "Amboseli", x: 250, image: "/assets/kifaru/amboseli.webp" },
-  { key: "serengeti", name: "Serengeti", x: 418, image: "/assets/kifaru/serengeti.webp" },
+  { key: "maasai-mara", name: "Maasai Mara", description: "Iconic wildlife and vast landscapes", x: 82, image: "/assets/kifaru/maasai-mara.webp" },
+  { key: "amboseli", name: "Amboseli", description: "Elephants and mountain views", x: 250, image: "/assets/kifaru/amboseli.webp" },
+  { key: "samburu", name: "Samburu", description: "Unique wildlife and rich culture", x: 418, image: "/assets/kifaru/samburu.webp" },
 ] as const;
 
-export const kifaruHeroImage = "/assets/kifaru/hero-safari.webp";
+export const kifaruHeroImage = "/assets/kifaru/hero-safari-v2.webp";
+
+export const kifaruSketchImage = "/assets/kifaru/sketch-safari.webp";
 
 export const kifaruLayerNames = ["sketch", "annotations", "wireframe", "high-fidelity", "finished"] as const;
 export type KifaruLayerName = (typeof kifaruLayerNames)[number];
@@ -47,19 +49,19 @@ export const kifaruStages = {
   wireframe: {
     label: "Structured wireframe",
     description: "A clear structure for the story and the next step.",
-    rotation: -1.5,
+    rotation: -3,
     layers: { sketch: 0, annotations: 0, wireframe: 1, "high-fidelity": 0, finished: 0 },
   },
   "high-fidelity": {
     label: "High-fidelity design",
     description: "Typography, colour and imagery bring the journey to life.",
-    rotation: 1,
+    rotation: -3,
     layers: { sketch: 0, annotations: 0, wireframe: 0, "high-fidelity": 1, finished: 0 },
   },
   finished: {
     label: "Finished website",
     description: "The complete experience, ready for its first visitor.",
-    rotation: 2,
+    rotation: -3,
     layers: { sketch: 0, annotations: 0, wireframe: 0, "high-fidelity": 1, finished: 1 },
   },
 } as const satisfies Record<KifaruStage, StageDefinition>;

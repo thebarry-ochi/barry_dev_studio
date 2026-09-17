@@ -30,6 +30,10 @@ export function KifaruGraphic({ stage, pose = "process", className = "" }: Kifar
         <title id={`${prefix}-title`}>{`Kifaru: ${state.label.toLowerCase()}`}</title>
         <desc id={`${prefix}-description`}>{`${state.description} A fictional safari website with a headline, a journey enquiry button, a hero image and three destination cards.`}</desc>
         <defs>
+          <linearGradient id={`${prefix}-sketch-wash`}><stop stopColor="white" stopOpacity=".95" /><stop offset=".65" stopColor="white" stopOpacity=".8" /><stop offset="1" stopColor="white" stopOpacity="0" /></linearGradient>
+          <linearGradient id={`${prefix}-hero-wash`}><stop stopColor="#fffaf0" stopOpacity=".8" /><stop offset=".75" stopColor="#fffaf0" stopOpacity=".4" /><stop offset="1" stopColor="#fffaf0" stopOpacity="0" /></linearGradient>
+          <linearGradient id={`${prefix}-card-shade`} x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stopOpacity="0" /><stop offset="1" stopOpacity=".85" /></linearGradient>
+          <clipPath id={`${prefix}-clip-finished-card`}><rect width="148" height="78" rx="3" /></clipPath>
           <clipPath id={`${prefix}-clip-hero`} clipPathUnits="userSpaceOnUse"><rect width={g.heroImage.width} height={g.heroImage.height} rx="2" /></clipPath>
           <clipPath id={`${prefix}-clip-card`} clipPathUnits="userSpaceOnUse"><rect width={g.cardImageWidth} height={g.cardImageHeight} rx="1" /></clipPath>
           <filter id={`${prefix}-shadow`} x="-20%" y="-20%" width="140%" height="150%" colorInterpolationFilters="sRGB"><feDropShadow dx="0" dy="13" stdDeviation="11" floodColor="var(--brand-navy)" floodOpacity="0.14" /></filter>

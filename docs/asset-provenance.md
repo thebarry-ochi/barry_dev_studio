@@ -46,3 +46,10 @@ Saved asset: public/assets/kifaru/serengeti.webp
 Prompt:
 
 Use case: photorealistic-natural. Asset type: horizontal 3:2 image for a fictional premium safari website KIFARU, destination card Serengeti. Editorial photograph of three giraffes spaced naturally in expansive golden savannah, a distant flat-topped acacia tree, layered faraway blue-grey hills and softly overcast pale warm sky, late afternoon light. A calm composed luxury safari magazine image with distinct visual silhouette. Muted earth tones, realistic natural textures. Landscape full bleed, no people, no words, no logos, no border or watermark. Illustrative concept imagery.
+
+
+## Kifaru reference refresh — September 17, 2026
+
+Adapted the user-supplied `Barry Dev Studio graphics.png` reference into editable SVG layouts. Updated the pencil drawing, navigation, wireframe placeholders, full-width safari hero, destination cards and finished browser treatment. The mock browser address is decorative artwork, not a link or a claim that the domain is owned.
+
+New AI-generated illustrative assets: `hero-safari-v2.webp` (panoramic elephant/acacia scene), `sketch-safari.webp` (matching graphite illustration), and `samburu.webp` (safari lodge). They do not document a real lodge, client, or commissioned safari project. Existing Maasai Mara and Amboseli concept imagery is retained. Original source images remain in the local generated-images directory; optimized WebP versions ship with the project. The sketch illustration fades in while editable SVG outlines draw; all four stages retain the existing scroll handoff and reduced-motion fallback.

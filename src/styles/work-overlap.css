@@ -1,0 +1,21 @@
+/* Work is an opaque surface. Native sticky positioning supplies the overlap. */
+.work { position: relative; background: var(--brand-white); }
+@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference) {
+  /* Four-stage timeline (300svh), followed by one viewport of covering travel. */
+  .process[data-scroll-process="active"] { height: 500svh; }
+  .journey-transfer:has(.process[data-scroll-process="active"]) + .work {
+    margin-top: -100svh;
+    z-index: 3;
+  }
+}
+
+/* Contact and footer form one opaque navy surface above the pinned work. */
+.contact, .site-footer { position: relative; z-index: 4; }
+@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference) {
+  .contact { min-height: var(--contact-min-height, 0px); }
+  .work[data-contact-overlap="active"] {
+    position: sticky;
+    top: var(--work-pin-top, 0px);
+    z-index: 3;
+  }
+}

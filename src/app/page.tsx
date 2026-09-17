@@ -5,13 +5,17 @@ import { Work } from "@/components/site/work/work";
 import { Contact } from "@/components/site/contact/contact";
 import { Footer } from "@/components/site/footer/footer";
 
+import { JourneyTransfer } from "@/components/site/journey/journey-transfer";
+
 export default function Home() {
   return (
     <div id="top">
       <Header />
       <main id="main-content" tabIndex={-1}>
-        <Hero />
-        <Process />
+        <JourneyTransfer>
+          <Hero />
+          <Process />
+        </JourneyTransfer>
         <Work />
         <Contact />
       </main>

@@ -1,9 +1,9 @@
 # Barry Dev Studio
 
-Phase 3: a one-time hero drawing entrance, shared four-state Kifaru graphic system and responsive static homepage built on the Phase 0 Next.js App Router,
+Phase 6: Work overlaps the completed Process story, following the hero transfer and four scroll-linked Kifaru stages. built on the Phase 0 Next.js App Router,
 strict TypeScript, Geist Sans, Tailwind CSS 4, and Motion foundation.
 
-See `docs/phase-3.md`, `docs/phase-2.md` and `docs/phase-1.md` for implementation scope, checks, and intentionally deferred
+See `docs/phase-6.md`, `docs/phase-5.md`, `docs/phase-4.md`, `docs/phase-3.md`, `docs/phase-2.md` and `docs/phase-1.md` for implementation scope, checks, and intentionally deferred
 features. Contact information remains placeholder content by request.
 
 ## Local development
@@ -74,7 +74,7 @@ with `SITE_URL`, then rebuild. Metadata is evaluated at build time. Indexing
 controls are not authentication. Add approved sharing images and icons in a later phase.
 
 Phase 2 connects Discover, Define, Develop and Deliver to four Kifaru states.
-Scroll animations, full case studies, contact delivery, and deployment remain
+Full case studies, contact delivery, and deployment remain
 future work. Review changes before committing and pushing.
 
 ## Tooling compatibility

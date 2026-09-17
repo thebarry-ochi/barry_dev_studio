@@ -1,10 +1,15 @@
+"use client";
+
 import { Container } from "@/components/layout/container";
 import { projects } from "@/lib/content";
 import { ProjectCard } from "./project-card";
 
+import { useWorkOverlap } from "./use-work-overlap";
+
 export function Work() {
+  const ref = useWorkOverlap();
   return (
-    <section id="work" className="work section" aria-labelledby="work-title">
+    <section ref={ref} id="work" className="work section" aria-labelledby="work-title">
       <Container>
         <div className="work-heading">
           <p className="eyebrow">The Work</p>

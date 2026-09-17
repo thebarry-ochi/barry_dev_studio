@@ -1,0 +1,35 @@
+.process-scroll-guide, .process-scroll-progress { display: none; }
+@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference) {
+  .process[data-scroll-process="active"] { padding-block: 0; height: 400svh; }
+  .process[data-scroll-process="active"] .process-pin {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-block: 32px;
+  }
+  .process[data-scroll-process="active"] .process-scroll-guide {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    align-items: center;
+    margin-top: 24px;
+    color: var(--brand-blue);
+    font-size: 11px;
+  }
+  .process-scroll-guide a { color: var(--brand-navy); text-decoration: underline; text-underline-offset: 4px; }
+  .process[data-scroll-process="active"] .process-panel { margin-top: 28px; }
+  .process[data-scroll-process="active"] .process-scroll-progress {
+    display: block;
+    height: 2px;
+    overflow: hidden;
+  }
+  .process-scroll-progress span {
+    display: block;
+    height: 100%;
+    background: var(--brand-blue);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}
