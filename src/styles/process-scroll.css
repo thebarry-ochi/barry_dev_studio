@@ -1,3 +1,6 @@
+/* Animate the contents while keeping the link's hit area stationary. */
+.process-skip-content { display: flex; flex-direction: inherit; align-items: center; gap: inherit; pointer-events: none; }
+
 @media (prefers-reduced-motion: no-preference) {
  .process[data-scroll-process="active"] { height: 450svh; }
  .process[data-scroll-process="active"] .process-pin { position: sticky; top: 0; height: 100svh; }
@@ -25,8 +28,8 @@
  .process-art > .kifaru-scene { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(100%, 118.5185cqh); height: auto; }
  .process-connectors { display: none; }
  .process-skip { flex-direction: row; gap: 8px; margin: 0 auto; font-size: 13px; min-height: 40px; }
- .process-skip > span { width: 30px; height: 30px; }
- .process-skip > span:before { display: none; }
+ .process-skip .process-skip-icon { width: 30px; height: 30px; }
+ .process-skip .process-skip-icon:before { display: none; }
  .hero[data-hero-animation="active"] .hero-art { width: min(calc(100vw - 20px), 68svh, 740px); }
 }
 @media (max-width: 767px) {
@@ -87,6 +90,6 @@
  .process-step-description { font-size: 13px; margin-top: 8px; }
  .step-rule { margin-top: 8px; }
  .process-skip { margin-top: 8px; font-size: 14px; gap: 4px; }
- .process-skip > span { width: 30px; height: 30px; }
- .process-skip > span:before { display: none; }
+ .process-skip .process-skip-icon { width: 30px; height: 30px; }
+ .process-skip .process-skip-icon:before { display: none; }
 }
