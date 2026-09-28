@@ -11,7 +11,7 @@ export function useWorkOverlap() {
     const contact = document.getElementById("contact");
     const footer = document.querySelector<HTMLElement>(".site-footer");
     if (!section || !contact) return;
-    const media = window.matchMedia("(min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference)");
+    const media = window.matchMedia("(prefers-reduced-motion: no-preference)");
     let frame = 0;
 
     function update() {

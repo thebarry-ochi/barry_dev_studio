@@ -1,8 +1,8 @@
 export const processStages = [
-  { name: "Discover", graphicStage: "sketch", title: "Start with the right questions.", description: "We get to know your business, your customers, and what stands between them. Together, we find what your website needs to do better.", deliverable: "Business goals & customer insights" },
-  { name: "Define", graphicStage: "wireframe", title: "Give every page a purpose.", description: "We turn what we learn into a clear plan: the right pages, the right content, and a straightforward path from first visit to enquiry.", deliverable: "Website strategy & wireframes" },
-  { name: "Develop", graphicStage: "high-fidelity", title: "Bring the experience to life.", description: "We shape the visual direction and build a responsive website. Every detail, from the first headline to the final click, works toward your goals.", deliverable: "Design & website development" },
-  { name: "Deliver", graphicStage: "finished", title: "Launch with confidence.", description: "We test across devices, refine the details, and prepare you to manage your website. Then we launch, with support for what comes next.", deliverable: "Testing, launch & handover" },
+  { name: "Discover", graphicStage: "sketch", title: "Start with the right questions.", description: "We understand your business, your customers and what the website needs to achieve.", deliverable: "Business goals & customer insights" },
+  { name: "Define", graphicStage: "wireframe", title: "Give every page a purpose.", description: "We structure the content, plan the user journey and create a clear design direction.", deliverable: "Website strategy & wireframes" },
+  { name: "Develop", graphicStage: "high-fidelity", title: "Bring the experience to life.", description: "We bring the design to life with clean, modern interfaces and a seamless development process.", deliverable: "Design & website development" },
+  { name: "Deliver", graphicStage: "finished", title: "Launch with confidence.", description: "We launch your website and make sure it’s fast, secure and ready to grow your business.", deliverable: "Testing, launch & handover" },
 ] as const;
 
 export const projects = [

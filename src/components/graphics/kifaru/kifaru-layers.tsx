@@ -1,6 +1,6 @@
 import { kifaruDestinations, kifaruGeometry as g, kifaruHeroImage, kifaruSketchImage, type Box } from "./kifaru-system";
 
-const ink = "var(--brand-navy)";
+const ink = "var(--sketch-ink, #000)";
 const wire = "var(--kifaru-wire-ink)";
 const fill = "var(--kifaru-wire-fill)";
 type LayerProps = { prefix: string };
@@ -37,12 +37,12 @@ function ImagePlaceholder({ x, y, width, height }: Box) {
 export function SketchLayer({ prefix }: LayerProps) {
   return <g className="kifaru-pencil" stroke={ink} strokeLinecap="round" strokeLinejoin="round" fill="none">
     <g id={`${prefix}-sketch-page`} data-part="page">
-      <path pathLength="1" data-draw="page-outline" d={roughBox(g.page)} fill="white" strokeWidth="1" />
+      <path pathLength="1" data-draw="page-outline" d={roughBox(g.page)} fill="var(--sketch-paper, white)" strokeWidth="1" />
       <path pathLength="1" data-draw="page-pencil" d="M53 113 L54 477 L583 476 M63 106 L593 109 M50 149 H598 M52 359 H596 M64 102 V484 M584 103 V480" strokeWidth=".55" opacity=".25" />
       <path pathLength="1" data-draw="sketch-browser" d="M58 111 V99 Q58 94 63 94 H585 Q590 94 590 99 V111 M111 101 H556" strokeWidth=".8" />
       {[69, 79, 89].map(x => <circle key={x} cx={x} cy="102" r="2" strokeWidth=".8" />)}
     </g>
-    <g data-part="hero-image" className="kifaru-pencil-scene"><image href={kifaruSketchImage} x="59" y="151" width="530" height="204" preserveAspectRatio="xMidYMid slice" /><rect x="59" y="151" width="270" height="204" fill={`url(#${prefix}-sketch-wash)`} /></g>
+    <g data-part="hero-image" className="kifaru-pencil-scene"><image className="sketch-image-light" href={kifaruSketchImage} x="59" y="151" width="530" height="204" preserveAspectRatio="xMidYMid slice" /><image className="sketch-image-dark" href="/assets/kifaru/sketch-safari-dark.webp" x="59" y="151" width="530" height="204" preserveAspectRatio="xMidYMid slice" /><rect stroke="none" x="59" y="151" width="270" height="204" fill={`url(#${prefix}-sketch-wash)`} /></g>
     <Navigation mode="sketch" />
     <g data-part="hero-copy" transform={`translate(${g.heroCopy.x} ${g.heroCopy.y})`}>
       <g stroke="none" fill={ink} fontSize="25"><text y="39">Extraordinary</text><text y="69">Journeys in Africa</text></g>
@@ -53,7 +53,8 @@ export function SketchLayer({ prefix }: LayerProps) {
       <text x="11" y="18" fontSize="9" fill={ink} stroke="none">Explore Safaris</text>
       <path pathLength="1" data-draw="cta-arrow" d="M104 14 H115 M111 10 L115 14 L111 18" strokeWidth=".8" />
     </g>
-    <g data-part="cards">
+    <g data-part="cards" className="sketch-cards">
+      <rect x="59" y="355" width="530" height="115" fill="white" stroke="none" />
       <text x={g.cardsHeading.x} y="377" fill={ink} stroke="none" fontSize="12">Featured Experiences</text>
       {kifaruDestinations.map(card => <g data-card={card.key} key={card.key} transform={`translate(${card.x} ${g.cardImageY})`}>
         <path pathLength="1" data-draw="card-outline" d={roughBox({ x: 0, y: 0, width: g.cardImageWidth, height: g.cardImageHeight })} strokeWidth=".75" />
@@ -66,14 +67,14 @@ export function SketchLayer({ prefix }: LayerProps) {
 
 export function AnnotationLayer({ prefix }: LayerProps) {
   return <g className="kifaru-pencil" fill="none" stroke={ink} strokeLinecap="round" strokeLinejoin="round">
-    <g id={`${prefix}-annotation-notes`} data-part="notes" fontSize="11" fill={ink} stroke="none">
+    <g id={`${prefix}-annotation-notes`} data-part="notes" fontSize="12" fill={ink} stroke="none">
       <text x="379" y="63">Clean navigation</text>
       <text x="2" y="185"><tspan x="2">Clear</tspan><tspan x="2" dy="13">headline</tspan><tspan x="2" dy="13">that inspires</tspan></text>
       <text x="494" y="49"><tspan x="494">Impactful</tspan><tspan x="494" dy="13">hero image</tspan></text>
       <text x="5" y="293"><tspan x="5">Strong,</tspan><tspan x="5" dy="13">simple CTA</tspan></text>
-      <text x="74" y="508">Featured destinations</text><text x="423" y="508">Showcase popular places</text>
+      <text x="74" y="480">Featured destinations</text><text x="423" y="480">Showcase popular places</text>
     </g>
-    <g id={`${prefix}-annotation-arrows`} data-part="arrows" strokeWidth=".8">
+    <g id={`${prefix}-annotation-arrows`} data-part="arrows" stroke="var(--sketch-arrow, currentColor)" strokeWidth=".8">
       <path pathLength="1" data-draw="nav-arrow" d="M375 67 Q351 70 344 96 M343 87 L344 96 L351 91" />
       <path pathLength="1" data-draw="story-arrow" d="M32 223 Q44 238 80 233 M73 230 L80 233 L73 237" />
       <path pathLength="1" data-draw="image-arrow" d="M564 68 Q619 105 556 198 M557 188 L556 198 L565 192" />

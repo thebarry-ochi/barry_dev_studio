@@ -36,7 +36,7 @@ test("destination cards have equal geometry, a readable label slot, and no overl
 });
 
 test("every referenced photograph exists as WebP within the artwork byte budget", () => {
-  const assets = [kifaruHeroImage, kifaruSketchImage, ...kifaruDestinations.map(({ image }) => image)];
+  const assets = [kifaruHeroImage, kifaruSketchImage, "/assets/kifaru/sketch-safari-dark.webp", ...kifaruDestinations.map(({ image }) => image)];
   let total = 0;
   for (const asset of assets) {
     const file = new URL(`../public${asset}`, import.meta.url);
@@ -46,41 +46,42 @@ test("every referenced photograph exists as WebP within the artwork byte budget"
     assert.ok(statSync(file).size < 100_000, `${asset} should stay below 100KB`);
     total += bytes.length;
   }
-  assert.ok(total < 180_000, `combined assets should stay below 180KB, got ${total}`);
-});
-
-// The handoff must coincide exactly with both static layouts, including reverse scroll.
-const { transferFrame } = await import('../src/components/site/journey/transfer-geometry.ts');
-test('transfer clamps at both anchors and pins between them', () => {
-  const source = { left: 740, top: 200, width: 560, height: 472.5 };
-  const target = { left: 730, top: 950, width: 580, height: 489.375 };
-  const start = transferFrame(source, target, 0, 800);
-  assert.equal(start.progress, 0);
-  assert.ok(Math.abs(start.x) < 0.001);
-  assert.equal(start.y, 0);
-  assert.equal(start.scale, 1);
-  const end = transferFrame(source, target, 2000, 800);
-  assert.equal(end.progress, 1);
-  assert.equal(source.left + end.x, target.left);
-  assert.equal(source.top + end.y, target.top);
-  assert.equal(source.width * end.scale, target.width);
-  assert.equal(end.rotation, -3);
-  const first = transferFrame(source, target, 300, 800);
-  const second = transferFrame(source, target, 500, 800);
-  assert.ok(Math.abs((source.top + first.y - 300) - (source.top + second.y - 500)) < 0.001);
-  assert.deepEqual(transferFrame(source, target, 300, 800), first);
-});
-
-test('transfer remains pinned on tall viewports with no initial scroll runway', () => {
-  const source = { left: 700, top: 100, width: 500, height: 421.875 };
-  const target = { left: 710, top: 900, width: 510, height: 430.3125 };
-  for (const scroll of [0, 100, 400, 799]) {
-    const pose = transferFrame(source, target, scroll, 1200);
-    assert.ok(Math.abs(source.top + pose.y - scroll - 100) < 0.001);
-  }
+  assert.ok(total < 280_000, `combined assets should stay below 280KB, got ${total}`);
 });
 
 const { processPosition, processStageScroll } = await import('../src/components/site/process/process-timeline.ts');
+const { transferFrame } = await import('../src/components/site/journey/transfer-geometry.ts');
+test('travelling graphic holds through the Hero pause and matches both viewport anchors', () => {
+  const source = { left: 420, top: 140, width: 740, height: 624.375 };
+  const target = { left: 490, top: 260, width: 600, height: 506.25 };
+  const start = 1050, end = 1950;
+  for (const scroll of [0, 600, start]) {
+    const pose = transferFrame(source, target, scroll, start, end);
+    assert.equal(pose.progress, 0);
+    assert.equal(pose.left, source.left);
+    assert.equal(pose.top, source.top);
+    assert.equal(pose.scale, 1);
+  }
+  const arrival = transferFrame(source, target, end, start, end);
+  assert.equal(arrival.progress, 1);
+  assert.equal(arrival.left, target.left);
+  assert.equal(arrival.top, target.top);
+  assert.equal(source.width * arrival.scale, target.width);
+  assert.ok(Math.abs(source.height * arrival.scale - target.height) < 0.001);
+  assert.equal(arrival.rotation, -4);
+  assert.deepEqual(transferFrame(source, target, end + 2000, start, end), arrival);
+});
+test('travelling graphic stays in front of the viewport and reverses without accumulated offsets', () => {
+  const source = { left: 450, top: 130, width: 600, height: 506.25 };
+  const target = { left: 460, top: 240, width: 560, height: 472.5 };
+  const forward = [1000, 1200, 1400, 1600, 1800].map(y => transferFrame(source, target, y, 1000, 1800));
+  const backward = [1800, 1600, 1400, 1200, 1000].map(y => transferFrame(source, target, y, 1000, 1800));
+  assert.deepEqual(backward.reverse(), forward);
+  forward.forEach(pose => {
+    assert.ok(pose.top >= source.top && pose.top <= target.top);
+    assert.ok(pose.top + source.height * pose.scale < 800);
+  });
+});
 test('Process timeline has four stable resting stages and bounded reversible blends', () => {
   for (let index = 0; index < 4; index++) {
     const pose = processPosition(index / 3);
@@ -103,15 +104,33 @@ test('Process timeline has four stable resting stages and bounded reversible ble
 });
 
 const { processScrollDistance } = await import('../src/components/site/process/process-timeline.ts');
-test('Work cover travel starts after Deliver without stretching the four-stage timeline', () => {
-  const viewport = 900;
-  const original = processScrollDistance(4 * viewport, viewport);
-  const withOverlap = processScrollDistance(5 * viewport, viewport, viewport);
-  assert.equal(original, 2700);
-  assert.equal(withOverlap, original);
-  const deliver = processStageScroll(3, 816, withOverlap);
-  const workTop = 816 + 5 * viewport - viewport;
-  assert.equal(workTop - deliver, viewport, 'Work begins below the viewport at Deliver');
-  assert.equal(workTop - (816 + 5 * viewport - viewport), 0, 'sticky release coincides with full coverage');
-  assert.equal(processScrollDistance(400, 900, 900), 1);
+test('Process releases into normal Portfolio flow after Deliver', () => {
+ const viewport=900, height=4*viewport, start=900;
+ const distance=processScrollDistance(height,viewport);
+ const deliver=processStageScroll(3,start,distance);
+ assert.equal(start+height-deliver,viewport);
+ assert.equal(processScrollDistance(400,900),1);
+});
+const {validateContact}=await import('../src/lib/contact-validation.ts');
+const valid={name:'Test User',company:'Studio',website:'https://example.com',email:'test@example.com',message:'A test website enquiry.',nickname:''};
+test('contact validation accepts bounded input and trims whitespace',()=>{
+ assert.equal(validateContact({...valid,name:'  Test User  '}).values.name,'Test User');
+ assert.ok(validateContact({...valid,company:'',website:''}).values);
+});
+test('contact validation rejects malformed, unsafe and oversized values',()=>{
+ for(const input of [null,[],{}, {...valid,name:'a'},{...valid,email:'bad'},{...valid,website:'javascript:alert(1)'},{...valid,website:'https://user:secret@example.com'},{...valid,message:'x'.repeat(3001)},{...valid,message:'tiny'},{...valid,name:45}]) assert.ok(validateContact(input).error);
+});
+
+// The final rest is separate from the four-stage animation range.
+test('Process holds Deliver for half a viewport on phone, tablet and desktop', () => {
+ for (const viewport of [667, 844, 900, 1180]) {
+  const start = 1.28 * viewport, height = 4.5 * viewport;
+  const distance = processScrollDistance(height, viewport, 0, 0.5 * viewport);
+  const deliver = processStageScroll(3, start, distance);
+  const release = start + height - viewport;
+  assert.ok(Math.abs(release - deliver - viewport * 0.5) < 0.001);
+  for (const y of [deliver, deliver + viewport * 0.25, release]) {
+   assert.equal(processPosition((y - start) / distance).active, 3);
+  }
+ }
 });

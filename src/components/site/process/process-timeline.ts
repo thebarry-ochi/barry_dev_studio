@@ -12,7 +12,7 @@ export function processStageScroll(index: number, start: number, distance: numbe
   return start + Math.max(0, Math.min(3, index)) / 3 * Math.max(0, distance);
 }
 
-/** Reserve the covering travel after Deliver instead of stretching its stage timeline. */
-export function processScrollDistance(sectionHeight: number, pinHeight: number, overlapHeight = 0) {
-  return Math.max(1, sectionHeight - pinHeight - Math.max(0, overlapHeight));
+/** Reserve a final resting interval after Deliver, before the pinned section releases. */
+export function processScrollDistance(sectionHeight: number, pinHeight: number, overlapHeight = 0, holdHeight = 0) {
+  return Math.max(1, sectionHeight - pinHeight - Math.max(0, overlapHeight) - Math.max(0, holdHeight));
 }

@@ -43,25 +43,25 @@ export const kifaruStages = {
   sketch: {
     label: "Concept sketch",
     description: "A loose idea, with the right questions in the margins.",
-    rotation: -3,
+    rotation: -4,
     layers: { sketch: 1, annotations: 1, wireframe: 0, "high-fidelity": 0, finished: 0 },
   },
   wireframe: {
     label: "Structured wireframe",
     description: "A clear structure for the story and the next step.",
-    rotation: -3,
+    rotation: -2,
     layers: { sketch: 0, annotations: 0, wireframe: 1, "high-fidelity": 0, finished: 0 },
   },
   "high-fidelity": {
     label: "High-fidelity design",
     description: "Typography, colour and imagery bring the journey to life.",
-    rotation: -3,
+    rotation: 1,
     layers: { sketch: 0, annotations: 0, wireframe: 0, "high-fidelity": 1, finished: 0 },
   },
   finished: {
     label: "Finished website",
     description: "The complete experience, ready for its first visitor.",
-    rotation: -3,
+    rotation: 0,
     layers: { sketch: 0, annotations: 0, wireframe: 0, "high-fidelity": 1, finished: 1 },
   },
 } as const satisfies Record<KifaruStage, StageDefinition>;

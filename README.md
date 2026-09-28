@@ -83,3 +83,26 @@ ESLint remains on 9.x because the React plugin bundled with the current Next.js
 ESLint configuration fails under ESLint 10. npm marks ESLint 9 deprecated;
 upgrade when that plugin supports ESLint 10. Application dependencies are current
 at initialization; the lockfile records the tested versions.
+
+
+## September 2026 redesign
+
+The homepage follows the supplied black Hero → white Process/Portfolio → black Contact/Footer screens. Public UI colours are black, white and `#EB5E28`; portfolio concepts retain their photographic colours.
+
+The Hero automatically holds its opening message for one second, then separates the headline and paragraph, draws grouped SVG strokes and introduces the CTAs over 2.2 seconds. The entrance runs once per mount; scrolling back does not rewind it. Fast scrolling beyond the Hero hold completes the drawing before its handoff; reduced motion shows the completed layout without an entrance. Across desktop, tablet and phone layouts, native scrolling carries one Kifaru illustration into Process while its pencil strokes transition from white to black. Four process stages share SVG geometry. Process pauses on Deliver before releasing into Portfolio. Portfolio pauses at its bottom for 45% of the viewport’s scroll distance, then Contact covers it and the header exits. Below 1200px the Process stages use two rows around a centered graphic, all within the pinned viewport. Compact landscape phones keep the stage descriptions accessible to screen readers while showing the four named stages. Reduced motion uses normal flow and keyboard-operable stage controls.
+
+Portfolio mockups are HTML browser compositions over local WebP concept photography; these are illustrative sample projects, not claimed client launches.
+
+### Configure links and contact delivery later
+
+Copy `.env.example` to `.env.local`. Public links are optional HTTPS URLs and require a rebuild when changed. Missing social links are omitted; missing project URLs open honest concept previews; WhatsApp remains disabled until configured. Displayed phone/email are labelled placeholders.
+
+Contact sending stays disconnected until `CONTACT_DELIVERY_URL` and `CONTACT_DELIVERY_TOKEN` are configured. The route POSTs JSON to an operator-controlled HTTPS webhook with Bearer auth. Set the receiving email/provider at that service. It returns an explicit not-sent status when unconfigured.
+
+Validation includes client/server checks, same-origin requests, a streaming 16KB limit, a honeypot, a timeout and bounded per-instance email throttle. Before launch, add a durable hosting-edge rate limiter (memory resets between serverless instances), configure real destinations/details and test delivery end to end.
+
+Validation commands: `npm run lint`, `npm run typecheck`, `npm run test:graphics`, `npm run build -- --webpack`. They check source, geometry, asset budgets, timeline/handoff math and form validation; they do not certify Core Web Vitals or all browsers.
+
+### Brand logo
+
+`src/components/brand/barry-dev-studio-logo.tsx` recreates Option 8 as two clean vector paths and a live Geist wordmark. Use `variant="dark"` on black, `variant="light"` on white, or `variant="mark"` for the standalone orange symbol. The header keeps the same SVG mounted while its wordmark colour transitions; the mark remains `#EB5E28`. Pass `decorative` only when the containing link already provides an accessible name. `src/app/icon.svg` uses the same mark for the favicon, with no background or raster content. Keep its two paths in sync with the component if the approved geometry changes.

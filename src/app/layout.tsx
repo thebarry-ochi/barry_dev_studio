@@ -26,7 +26,7 @@ export const viewport: Viewport = { themeColor: "#FFFFFF", colorScheme: "light" 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={GeistSans.variable}>
-      <body>
+      <body suppressHydrationWarning>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <MotionProvider>{children}</MotionProvider>
       </body>

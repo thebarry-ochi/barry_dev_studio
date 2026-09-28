@@ -1,12 +1,27 @@
-/* The moving scene remains in flow: no spacer, overlay clone or duplicate IDs. */
+/* Keeps the Hero and Process artwork in a local stacking context. */
 .journey-transfer { isolation: isolate; }
-@media (min-width: 1024px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
-  .journey-transfer .hero-copy { position: relative; z-index: 0; }
-  .journey-transfer .process { position: relative; z-index: 1; }
-  .journey-transfer .hero-art { position: relative; z-index: 2; }
-  .journey-transfer .hero-art > .kifaru-scene { transform-origin: top left; }
-  .journey-transfer[data-transfer="moving"] .hero-art > .kifaru-scene { will-change: transform; }
-  .journey-transfer[data-transfer="ready"] .process-art .kifaru-scene,
-  .journey-transfer[data-transfer="moving"] .process-art .kifaru-scene,
-  .journey-transfer[data-transfer="landed"] .hero-art > .kifaru-scene { visibility: hidden; }
+
+/* Outside the sticky Hero's overflow clip and the Process stacking context.
+   Header remains above the travelling art; links underneath remain clickable. */
+.journey-flight {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 10;
+  pointer-events: none;
+  visibility: hidden;
+  transform-origin: top left;
+  --sketch-arrow: var(--accent);
+}
+.journey-flight[data-visible="true"] { visibility: visible; will-change: transform; }
+.journey-flight .sketch-cards { --sketch-ink: #000; stroke: #000; }
+.journey-flight [data-kifaru-layer="annotations"] { opacity: var(--annotation-opacity, 1); }
+.journey-transfer[data-transfer="moving"] .hero-art > .kifaru-scene,
+.journey-transfer[data-transfer="landed"] .hero-art > .kifaru-scene,
+.journey-transfer[data-transfer="ready"] .process-art > .kifaru-scene,
+.journey-transfer[data-transfer="moving"] .process-art > .kifaru-scene { visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-flight { display: none; }
+  .journey-transfer[data-transfer] .hero-art > .kifaru-scene,
+  .journey-transfer[data-transfer] .process-art > .kifaru-scene { visibility: visible; }
 }

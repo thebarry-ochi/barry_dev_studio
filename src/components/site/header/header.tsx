@@ -1,25 +1,55 @@
 "use client";
 
-import { useEffect, useRef, useState, useId } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { ListIcon, XIcon } from "@phosphor-icons/react";
+import { useEffect, useRef, useState } from "react";
+
+import { animated, useReducedMotion, useSpring, useTrail } from "@react-spring/web";
+import { BarryDevStudioLogo } from "@/components/brand/barry-dev-studio-logo";
 import { Container } from "@/components/layout/container";
 
-const links = [{ href: "#process", label: "Process" }, { href: "#work", label: "Our Work" }, { href: "#contact", label: "Reach out" }];
+const links = [{ href: "#process", label: "Process" }, { href: "#work", label: "Portfolio" }, { href: "#contact", label: "Reach Out" }];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
-  const id = useId();
-  const reduced = useReducedMotion();
-  function menuLinks(scope: string) {
+  const [light, setLight] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const panel = useRef<HTMLElement>(null);
+  const { progress } = useSpring({
+    progress: open ? 1 : 0,
+    config: { tension: 360, friction: 30 },
+    immediate: !!reduceMotion,
+  });
+  const panelSpring = useSpring({
+    opacity: open ? 1 : 0,
+    transform: open ? "translateY(0px) scale(1)" : "translateY(-10px) scale(0.98)",
+    config: { tension: open ? 400 : 480, friction: 32, clamp: true },
+    immediate: !!reduceMotion,
+  });
+  const linkSprings = useTrail(links.length, {
+    opacity: open ? 1 : 0,
+    transform: open ? "translateY(0px)" : "translateY(-5px)",
+    config: { tension: 520, friction: 32, clamp: true },
+    immediate: !!reduceMotion,
+  });
+  function menuLinks() {
     return links.map(link => <a href={link.href} key={link.href} aria-current={active === link.href ? "location" : undefined} onClick={() => { setActive(link.href); setOpen(false); }}>
-      {active === link.href && <motion.span className="nav-active-pill" layoutId={`${id}-${scope}`} transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 35 }} />}
-      <span className="nav-label">{link.label}</span>
+      <span className="nav-label">{link.href === "#process" && !light ? "The Process" : link.label}</span>
     </a>);
   }
   const header = useRef<HTMLElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const dismissOutside = (event: PointerEvent) => {
+      const target = event.target;
+      if (target instanceof Node && !panel.current?.contains(target) && !trigger.current?.contains(target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", dismissOutside);
+    return () => document.removeEventListener("pointerdown", dismissOutside);
+  }, [open]);
+
   useEffect(() => {
     const media = window.matchMedia("(min-width: 768px)");
     const closeOnDesktop = () => { if (media.matches) setOpen(false); };
@@ -36,6 +66,7 @@ export function Header() {
     const update = () => {
       frame = 0;
       const height = element.offsetHeight;
+      setLight((document.getElementById("process")?.getBoundingClientRect().top ?? Infinity) < height + 12);
       const current = [...links].reverse().find(link => {
         const section = document.querySelector(link.href);
         return section && section.getBoundingClientRect().top <= height + 32;
@@ -68,20 +99,40 @@ export function Header() {
   }, []);
 
   return (
-    <header ref={header} className="site-header" onKeyDown={(event) => {
+    <header ref={header} className="site-header" data-theme={light ? "light" : "dark"} onKeyDown={(event) => {
       if (event.key === "Escape" && open) { setOpen(false); trigger.current?.focus(); }
     }}>
       <Container className="header-inner">
-        <a className="wordmark" href="#top" aria-label="Barry Dev Studio home">Barry Dev Studio<span aria-hidden="true">.</span></a>
+        <a className="header-brand" href="#top" aria-label="Barry Dev Studio home">
+          <BarryDevStudioLogo variant={light ? "light" : "dark"} decorative />
+        </a>
         <nav className="desktop-nav" aria-label="Main navigation">
-          {menuLinks("desktop")}
+          {menuLinks()}
         </nav>
-        <button ref={trigger} className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "Close navigation" : "Open navigation"} onClick={() => setOpen(!open)}>
-          {open ? <XIcon size={25} aria-hidden="true" /> : <ListIcon size={25} aria-hidden="true" />}
+        <button ref={trigger} className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "Close navigation" : "Open navigation"} onClick={() => setOpen(value => !value)} onBlur={(event) => {
+          if (!panel.current?.contains(event.relatedTarget)) setOpen(false);
+        }}>
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden="true">
+            <animated.path d="M4 6H20" style={{ transformOrigin: "12px 12px", transform: progress.to(value => `rotate(${value * 45}deg) translateY(${value * 6}px)`) }} />
+            <animated.path d="M4 12H20" style={{ opacity: progress.to(value => 1 - value), transformOrigin: "12px 12px", transform: progress.to(value => `scaleX(${1 - value * 0.3})`) }} />
+            <animated.path d="M4 18H20" style={{ transformOrigin: "12px 12px", transform: progress.to(value => `rotate(${value * -45}deg) translateY(${value * -6}px)`) }} />
+          </svg>
         </button>
-        <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation" hidden={!open}>
-          {menuLinks("mobile")}
-        </nav>
+        <animated.nav ref={panel} id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation"
+          aria-hidden={!open} inert={!open}
+          style={{ ...panelSpring, visibility: panelSpring.opacity.to(value => value === 0 ? "hidden" : "visible"), pointerEvents: open ? "auto" : "none" }}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget) && event.relatedTarget !== trigger.current) setOpen(false);
+          }}>
+          {linkSprings.map((style, index) => {
+            const link = links[index];
+            return <animated.a key={link.href} href={link.href} style={style}
+              aria-current={active === link.href ? "location" : undefined}
+              onClick={() => { setActive(link.href); setOpen(false); }}>
+              {link.href === "#process" && !light ? "The Process" : link.label}
+            </animated.a>;
+          })}
+        </animated.nav>
       </Container>
     </header>
   );

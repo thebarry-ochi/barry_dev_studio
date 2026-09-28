@@ -4,6 +4,7 @@ import { kifaruGeometry as g, kifaruLayerNames, kifaruStages, type KifaruLayerNa
 
 export type KifaruGraphicProps = {
   stage: KifaruStage;
+  theme?: "dark" | "light";
   pose?: "hero" | "process" | "flat";
   className?: string;
 };
@@ -17,20 +18,20 @@ const layers: Record<KifaruLayerName, ComponentType<{ prefix: string }>> = {
 };
 
 /** All layers stay mounted. Phase 2 selects stills; later phases can drive their opacity/pathLength. */
-export function KifaruGraphic({ stage, pose = "process", className = "" }: KifaruGraphicProps) {
+export function KifaruGraphic({ stage, pose = "process", theme = "light", className = "" }: KifaruGraphicProps) {
   const instance = useId();
   const prefix = `kifaru-${instance.replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const state = kifaruStages[stage];
-  const rotation = pose === "flat" ? 0 : pose === "hero" ? -4 : state.rotation;
+  const rotation = pose === "flat" ? 0 : pose === "hero" ? -5 : state.rotation;
   const style = { "--kifaru-rotation": `${rotation}deg` } as CSSProperties;
 
   return (
-    <div className={`kifaru-scene ${className}`} data-kifaru-stage={stage} data-kifaru-pose={pose} style={style}>
+    <div className={`kifaru-scene ${className}`} data-kifaru-theme={theme} data-kifaru-stage={stage} data-kifaru-pose={pose} style={style}>
       <svg className="kifaru-artwork" xmlns="http://www.w3.org/2000/svg" viewBox={g.viewBox} width="640" height="540" role="img" aria-labelledby={`${prefix}-title`} aria-describedby={`${prefix}-description`} focusable="false">
         <title id={`${prefix}-title`}>{`Kifaru: ${state.label.toLowerCase()}`}</title>
         <desc id={`${prefix}-description`}>{`${state.description} A fictional safari website with a headline, a journey enquiry button, a hero image and three destination cards.`}</desc>
         <defs>
-          <linearGradient id={`${prefix}-sketch-wash`}><stop stopColor="white" stopOpacity=".95" /><stop offset=".65" stopColor="white" stopOpacity=".8" /><stop offset="1" stopColor="white" stopOpacity="0" /></linearGradient>
+          <linearGradient id={`${prefix}-sketch-wash`}><stop stopColor="var(--sketch-paper, white)" stopOpacity=".95" /><stop offset=".65" stopColor="var(--sketch-paper, white)" stopOpacity=".8" /><stop offset="1" stopColor="var(--sketch-paper, white)" stopOpacity="0" /></linearGradient>
           <linearGradient id={`${prefix}-hero-wash`}><stop stopColor="#fffaf0" stopOpacity=".8" /><stop offset=".75" stopColor="#fffaf0" stopOpacity=".4" /><stop offset="1" stopColor="#fffaf0" stopOpacity="0" /></linearGradient>
           <linearGradient id={`${prefix}-card-shade`} x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stopOpacity="0" /><stop offset="1" stopOpacity=".85" /></linearGradient>
           <clipPath id={`${prefix}-clip-finished-card`}><rect width="148" height="78" rx="3" /></clipPath>

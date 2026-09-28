@@ -1,0 +1,7 @@
+/* The mark stays orange and stationary; only the wordmark changes with the header. */
+.brand-logo { display: block; width: 100%; height: auto; overflow: visible; }
+.brand-logo-wordmark { transition: fill .35s ease; }
+.header-brand { display: block; flex: 0 0 auto; width: clamp(190px, 16vw, 230px); }
+@media (max-width: 767px) {
+  .header-brand { width: clamp(175px, 48vw, 200px); }
+}

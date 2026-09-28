@@ -16,7 +16,7 @@ export function useProcessScroll(select: (index: number) => void) {
     if (!section || !pin || !scene || !svg || !("ResizeObserver" in window)) return;
     const layers = kifaruLayerNames.map((name) => [name, scene.querySelector<SVGGElement>(`[data-kifaru-layer="${name}"]`)] as const);
     const elevation = scene.querySelector<SVGGElement>('[data-part="elevation"]');
-    const media = matchMedia("(min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference)");
+    const media = matchMedia("(prefers-reduced-motion: no-preference)");
     const work = section.closest(".journey-transfer")?.nextElementSibling;
     let overlap = 0;
     let start = 0;
@@ -57,7 +57,7 @@ export function useProcessScroll(select: (index: number) => void) {
       section.dataset.scrollProcess = "active";
       start = section.getBoundingClientRect().top + scrollY;
       overlap = work?.matches("#work") ? Math.max(0, -parseFloat(getComputedStyle(work).marginTop) || 0) : 0;
-      distance = processScrollDistance(section.offsetHeight, pin.offsetHeight, overlap);
+      distance = processScrollDistance(section.offsetHeight, pin.offsetHeight, overlap, pin.offsetHeight * 0.5);
       jump.current = (index) => {
         // Immediate navigation preserves keyboard responsiveness and avoids racing a smooth scroll.
         window.scrollTo({ top: processStageScroll(index, start, distance), behavior: "instant" });
