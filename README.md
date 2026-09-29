@@ -87,9 +87,9 @@ at initialization; the lockfile records the tested versions.
 
 ## September 2026 redesign
 
-The homepage follows the supplied black Hero → white Process/Portfolio → black Contact/Footer screens. Public UI colours are black, white and `#EB5E28`; portfolio concepts retain their photographic colours.
+The homepage follows the supplied black Hero → white Process/Portfolio/About → black Contact/Footer screens. Public UI colours are black, white and `#EB5E28`; portfolio concepts retain their photographic colours.
 
-The Hero automatically holds its opening message for one second, then separates the headline and paragraph, draws grouped SVG strokes and introduces the CTAs over 2.2 seconds. The entrance runs once per mount; scrolling back does not rewind it. Fast scrolling beyond the Hero hold completes the drawing before its handoff; reduced motion shows the completed layout without an entrance. Across desktop, tablet and phone layouts, native scrolling carries one Kifaru illustration into Process while its pencil strokes transition from white to black. Four process stages share SVG geometry. Process pauses on Deliver before releasing into Portfolio. Portfolio pauses at its bottom for 45% of the viewport’s scroll distance, then Contact covers it and the header exits. Below 1200px the Process stages use two rows around a centered graphic, all within the pinned viewport. Compact landscape phones keep the stage descriptions accessible to screen readers while showing the four named stages. Reduced motion uses normal flow and keyboard-operable stage controls.
+The Hero automatically holds its opening message for one second, then separates the headline and paragraph, draws grouped SVG strokes and introduces the CTAs over 2.2 seconds. The entrance runs once per mount; scrolling back does not rewind it. Fast scrolling beyond the Hero hold completes the drawing before its handoff; reduced motion shows the completed layout without an entrance. Across desktop, tablet and phone layouts, native scrolling carries one Kifaru illustration into Process while its pencil strokes transition from white to black. Four process stages share SVG geometry. Process pauses on Deliver before releasing into Portfolio. Portfolio flows into About. About pauses at its bottom for 45% of the viewport’s scroll distance, then Contact covers it and the header exits. Below 1200px the Process stages use two rows around a centered graphic, all within the pinned viewport. Compact landscape phones keep the stage descriptions accessible to screen readers while showing the four named stages. Reduced motion uses normal flow and keyboard-operable stage controls.
 
 Portfolio mockups are HTML browser compositions over local WebP concept photography; these are illustrative sample projects, not claimed client launches.
 
@@ -106,3 +106,9 @@ Validation commands: `npm run lint`, `npm run typecheck`, `npm run test:graphics
 ### Brand logo
 
 `src/components/brand/barry-dev-studio-logo.tsx` recreates Option 8 as two clean vector paths and a live Geist wordmark. Use `variant="dark"` on black, `variant="light"` on white, or `variant="mark"` for the standalone orange symbol. The header keeps the same SVG mounted while its wordmark colour transitions; the mark remains `#EB5E28`. Pass `decorative` only when the containing link already provides an accessible name. `src/app/icon.svg` uses the same mark for the favicon, with no background or raster content. Keep its two paths in sync with the component if the approved geometry changes.
+
+### About section
+
+About follows Portfolio and uses the supplied editorial desktop/mobile layouts. Enterprise experience is explicitly attributed to work through IgniteTech. Its entrance uses short, once-only opacity/transform reveals; reduced motion and no JavaScript leave all content visible. The existing contact overlap now pins About, with normal flow for reduced motion.
+
+The About portrait uses Barry’s supplied sketch at `public/assets/about/barry-sketch.png`, rendered through Next Image with descriptive alt text. Its orange accents are preserved. Desktop uses a portrait crop; mobile displays the full 3:2 composition. To change the image, update the `portrait` prop in `src/app/page.tsx`; focal points can be adjusted with `--portrait-position` and `--portrait-position-mobile`.

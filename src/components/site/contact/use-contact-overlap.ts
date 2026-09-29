@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-/** Keep the complete project grid readable before the contact surface covers it. */
-export function useWorkOverlap() {
+/** Keep the final white section readable before the Contact surface covers it. */
+export function useContactOverlap() {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -19,12 +19,12 @@ export function useWorkOverlap() {
       if (!section || !contact) return;
       if (!media.matches) {
         delete section.dataset.contactOverlap;
-        section.style.removeProperty("--work-pin-top");
+        section.style.removeProperty("--contact-overlap-top");
         contact.style.removeProperty("--contact-min-height");
         section.inert = false;
         return;
       }
-      section.style.setProperty("--work-pin-top", `${Math.min(0, window.innerHeight - section.offsetHeight)}px`);
+      section.style.setProperty("--contact-overlap-top", `${Math.min(0, window.innerHeight - section.offsetHeight)}px`);
       section.dataset.contactOverlap = "active";
       contact.style.setProperty("--contact-min-height", `${Math.max(0, window.innerHeight - (footer?.offsetHeight ?? 0))}px`);
       // Native dialogs remain interactive in the top layer, including on resize.
@@ -52,7 +52,7 @@ export function useWorkOverlap() {
       section.removeEventListener("close", schedule, true);
       media.removeEventListener("change", schedule);
       delete section.dataset.contactOverlap;
-      section.style.removeProperty("--work-pin-top");
+      section.style.removeProperty("--contact-overlap-top");
       contact.style.removeProperty("--contact-min-height");
       section.inert = false;
     };

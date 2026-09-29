@@ -1,0 +1,8 @@
+.work { position: relative; background: white; }
+.contact, .site-footer { position: relative; z-index: 4; }
+@media (prefers-reduced-motion: no-preference) {
+ .contact { min-height: var(--contact-min-height, 0px); }
+ .about[data-contact-overlap="active"] { position: sticky; top: var(--contact-overlap-top, 0px); z-index: 3; }
+ /* About stays pinned across this space before Contact enters the viewport. */
+ .about[data-contact-overlap="active"] + .contact { margin-top: 45svh; }
+}

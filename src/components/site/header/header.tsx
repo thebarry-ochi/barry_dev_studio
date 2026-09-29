@@ -6,7 +6,7 @@ import { animated, useReducedMotion, useSpring, useTrail } from "@react-spring/w
 import { BarryDevStudioLogo } from "@/components/brand/barry-dev-studio-logo";
 import { Container } from "@/components/layout/container";
 
-const links = [{ href: "#process", label: "Process" }, { href: "#work", label: "Portfolio" }, { href: "#contact", label: "Reach Out" }];
+const links = [{ href: "#process", label: "Process" }, { href: "#work", label: "Portfolio" }, { href: "#about", label: "About" }, { href: "#contact", label: "Reach Out" }];
 
 export function Header() {
   const [open, setOpen] = useState(false);

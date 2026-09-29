@@ -6,7 +6,8 @@
 @import "../styles/mobile-navigation.css";
 @import "../styles/kifaru.css";
 @import "../styles/process-scroll.css";
-@import "../styles/work-overlap.css";
+@import "../styles/about.css";
+@import "../styles/contact-overlap.css";
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
