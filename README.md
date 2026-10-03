@@ -91,11 +91,11 @@ The homepage follows the supplied black Hero → white Process/Portfolio/About �
 
 The Hero automatically holds its opening message for one second, then separates the headline and paragraph, draws grouped SVG strokes and introduces the CTAs over 2.2 seconds. The entrance runs once per mount; scrolling back does not rewind it. Fast scrolling beyond the Hero hold completes the drawing before its handoff; reduced motion shows the completed layout without an entrance. Across desktop, tablet and phone layouts, native scrolling carries one Kifaru illustration into Process while its pencil strokes transition from white to black. Four process stages share SVG geometry. Process pauses on Deliver before releasing into Portfolio. Portfolio flows into About. About pauses at its bottom for 45% of the viewport’s scroll distance, then Contact covers it and the header exits. Below 1200px the Process stages use two rows around a centered graphic, all within the pinned viewport. Compact landscape phones keep the stage descriptions accessible to screen readers while showing the four named stages. Reduced motion uses normal flow and keyboard-operable stage controls.
 
-Portfolio mockups are HTML browser compositions over local WebP concept photography; these are illustrative sample projects, not claimed client launches.
+Rom Africa Safaris and CarLux Kenya use supplied homepage screenshots and link to their deployed Vercel sites. Screenshot thumbnails preserve the full 3418:1890 aspect ratio across breakpoints. Ridgeview retains its illustrative browser composition and concept preview.
 
 ### Configure links and contact delivery later
 
-Copy `.env.example` to `.env.local`. Public links are optional HTTPS URLs and require a rebuild when changed. Missing social links are omitted; missing project URLs open honest concept previews; WhatsApp remains disabled until configured. Displayed phone/email are labelled placeholders.
+Copy `.env.example` to `.env.local`. Public links are optional HTTPS URLs and require a rebuild when changed. Rom Africa Safaris and CarLux Kenya have confirmed default project URLs, optionally overridden with `NEXT_PUBLIC_ROM_AFRICA_URL` and `NEXT_PUBLIC_CARLUX_URL`. Missing social links are omitted; projects without URLs open concept previews; WhatsApp remains disabled until configured. Displayed phone/email are labelled placeholders.
 
 Contact sending stays disconnected until `CONTACT_DELIVERY_URL` and `CONTACT_DELIVERY_TOKEN` are configured. The route POSTs JSON to an operator-controlled HTTPS webhook with Bearer auth. Set the receiving email/provider at that service. It returns an explicit not-sent status when unconfigured.
 

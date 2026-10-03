@@ -111,3 +111,18 @@ html{scroll-behavior:smooth;scroll-padding-top:0}body{color:#000;background:#fff
   .hero[data-hero-animation="active"] h1,.hero[data-hero-animation="active"] .hero-copy{transform:none}
   .hero[data-hero-animation="active"] .hero-actions{opacity:1;visibility:visible}
 }
+
+/* Live-site screenshots retain their complete original framing at every breakpoint. */
+.project-card .project-visual.project-screenshot{aspect-ratio:3418 / 1890;background:transparent;min-width:0}
+.project-card .project-screenshot>img,.project-card:hover .project-screenshot>img{position:static;display:block;width:100%;height:auto;object-fit:contain;transform:none;transition:none}
+
+/* Each portfolio project has the same visual weight and thumbnail dimensions. */
+.project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.project-card,.project-card:first-child,.project-card:not(:first-child){display:flex;flex-direction:column;align-items:stretch;grid-column:auto;gap:22px;min-width:0;margin-bottom:0}
+.project-card .project-visual,.project-card:first-child .project-visual,.project-card:not(:first-child) .project-visual{width:100%;aspect-ratio:3418 / 1890;flex-shrink:0}
+.project-card h3,.project-card:first-child h3{font-size:26px}
+.project-info{display:flex;flex-direction:column;flex:1;align-items:flex-start}
+.project-info .text-link{margin-top:auto}
+.project-card .project-description,.project-card:first-child .project-description{font-size:15px;margin-block:20px}
+@media(max-width:1100px){.project-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 30px}}
+@media(max-width:767px){.project-grid{grid-template-columns:minmax(0,1fr);gap:36px}.project-card h3,.project-card:first-child h3{font-size:28px}}
