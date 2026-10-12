@@ -13,7 +13,7 @@ export function ProjectCard({ project }: { project: Project }) {
   const index = project.id === "rom-africa" ? 0 : project.id === "ridgeview" ? 1 : 2;
   const titles = ["Unforgettable Safari Experiences in East Africa", "Luxury Homes in Exceptional Locations", "Premium Vehicles for Every Journey"];
   const brands = ["ROM AFRICA", "Ridgeview", "CARLUX"];
-  const summaries = ["A modern, conversion-focused website for a premium safari company, designed to showcase unforgettable experiences and make it easy for travellers to plan their dream trip.", "A sleek, modern website for a real estate company, designed to build trust and generate enquiries for high-value properties.", "A high-performance website for a premium car dealership, showcasing inventory and making it simple for customers to get in touch."];
+  const summaries = ["A modern, conversion-focused website for a premium safari company, designed to showcase unforgettable experiences and make it easy for travellers to plan their dream trip.", "A premium property website for RidgeView Heights, designed to present the residences, amenities and private-viewing journey with clarity.", "A high-performance website for a premium car dealership, showcasing inventory and making it simple for customers to get in touch."];
   const isScreenshot = project.preview === "screenshot";
   const imageSizes = "(max-width: 767px) calc(100vw - 48px), (max-width: 1100px) calc((100vw - 110px) / 2), (max-width: 1600px) 30vw, 450px";
   const href = publicLinks.projects[project.id];

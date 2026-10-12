@@ -7,7 +7,7 @@ export const publicLinks = {
   whatsapp: https(process.env.NEXT_PUBLIC_WHATSAPP_URL),
   projects: {
     "rom-africa": https(process.env.NEXT_PUBLIC_ROM_AFRICA_URL) ?? "https://rom-africa-website.vercel.app/",
-    ridgeview: https(process.env.NEXT_PUBLIC_RIDGEVIEW_URL),
+    ridgeview: https(process.env.NEXT_PUBLIC_RIDGEVIEW_URL) ?? "https://ridgeview-heights.vercel.app/",
     "carlux-kenya": https(process.env.NEXT_PUBLIC_CARLUX_URL) ?? "https://carlux-kenya.vercel.app/",
   },
   instagram: https(process.env.NEXT_PUBLIC_INSTAGRAM_URL),
