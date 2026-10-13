@@ -4,7 +4,7 @@ Phase 6: Work overlaps the completed Process story, following the hero transfer 
 strict TypeScript, Geist Sans, Tailwind CSS 4, and Motion foundation.
 
 See `docs/phase-6.md`, `docs/phase-5.md`, `docs/phase-4.md`, `docs/phase-3.md`, `docs/phase-2.md` and `docs/phase-1.md` for implementation scope, checks, and intentionally deferred
-features. Contact information remains placeholder content by request.
+features. Contact-form delivery and the displayed email remain placeholder content by request.
 
 ## Local development
 
@@ -95,7 +95,7 @@ Rom Africa Safaris, RidgeView Heights and CarLux Kenya use supplied homepage scr
 
 ### Configure links and contact delivery later
 
-Copy `.env.example` to `.env.local`. Public links are optional HTTPS URLs and require a rebuild when changed. Rom Africa Safaris, RidgeView Heights and CarLux Kenya have confirmed default project URLs, optionally overridden with `NEXT_PUBLIC_ROM_AFRICA_URL`, `NEXT_PUBLIC_RIDGEVIEW_URL` and `NEXT_PUBLIC_CARLUX_URL`. Missing social links are omitted; projects without URLs open concept previews; WhatsApp remains disabled until configured. Displayed phone/email are labelled placeholders.
+Copy `.env.example` to `.env.local`. Public links are optional HTTPS URLs and require a rebuild when changed. Rom Africa Safaris, RidgeView Heights and CarLux Kenya have confirmed default project URLs, optionally overridden with `NEXT_PUBLIC_ROM_AFRICA_URL`, `NEXT_PUBLIC_RIDGEVIEW_URL` and `NEXT_PUBLIC_CARLUX_URL`. Missing social links are omitted; projects without URLs open concept previews; WhatsApp remains disabled until configured. The displayed email remains labelled as a placeholder.
 
 Contact sending stays disconnected until `CONTACT_DELIVERY_URL` and `CONTACT_DELIVERY_TOKEN` are configured. The route POSTs JSON to an operator-controlled HTTPS webhook with Bearer auth. Set the receiving email/provider at that service. It returns an explicit not-sent status when unconfigured.
 

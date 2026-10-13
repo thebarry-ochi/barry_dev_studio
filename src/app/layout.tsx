@@ -27,6 +27,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={GeistSans.variable}>
       <body suppressHydrationWarning>
+        <noscript>
+          <style>{`[data-section-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }`}</style>
+        </noscript>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <MotionProvider>{children}</MotionProvider>
       </body>
